@@ -18,6 +18,7 @@ class App extends React.Component {
   onChange = (event) => {
     const { name, value, type, checked } = event.target;
     // console.log(name, value, type, checked);
+
     const newState = type === 'checkbox' ? checked : value;
     this.setState({ [name]: newState }, this.validation);
   };
