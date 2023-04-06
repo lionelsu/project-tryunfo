@@ -76,6 +76,7 @@ class App extends React.Component {
   };
 
   render() {
+    const { deck } = this.state;
     return (
       <div>
         <Form
@@ -84,6 +85,13 @@ class App extends React.Component {
           onInputChange={ this.onChange }
         />
         <Card { ...this.state } />
+        <div>
+          {
+            deck.map((card) => (
+              <Card key={ card.cardName } { ...card } />
+            ))
+          }
+        </div>
       </div>
     );
   }
