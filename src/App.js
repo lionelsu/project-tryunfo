@@ -6,19 +6,19 @@ class App extends React.Component {
   state = {
     cardName: '',
     cardDescription: '',
-    cardAttr1: '',
-    cardAttr2: '',
-    cardAttr3: '',
+    cardAttr1: '0',
+    cardAttr2: '0',
+    cardAttr3: '0',
     cardImage: '',
     cardRare: 'normal',
     cardTrunfo: false,
     isSaveButtonDisabled: true,
+    deck: [],
   };
 
   onChange = (event) => {
     const { name, value, type, checked } = event.target;
     // console.log(name, value, type, checked);
-
     const newState = type === 'checkbox' ? checked : value;
     this.setState({ [name]: newState }, this.validation);
   };
@@ -56,14 +56,30 @@ class App extends React.Component {
     }
   };
 
+  onSave = () => {
+    const newCard = { ...this.state };
+
+    this.setState((prevState) => ({
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardImage: '',
+      cardRare: 'normal',
+      cardTrunfo: false,
+      isSaveButtonDisabled: true,
+      deck: [...prevState.deck, newCard],
+    }));
+  };
+
   render() {
-    const { isSaveButtonDisabled } = this.state;
     return (
       <div>
         <Form
+          { ...this.state }
+          onSaveButtonClick={ this.onSave }
           onInputChange={ this.onChange }
-          isSaveButtonDisabled={ isSaveButtonDisabled }
-          values={ this.state }
         />
         <Card { ...this.state } />
       </div>
